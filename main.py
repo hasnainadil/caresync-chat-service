@@ -114,6 +114,13 @@ Available TEST_TYPE enum values:
 If you are unsure about a user request, ask clarifying questions.
 '''
 
+@app.get("/", status_code=200, response_model=str)
+async def root():
+    return "Welcome to the Chat Service!"
+
+@app.get("/chat/v1/test", status_code=200, response_model=str)
+async def test_endpoint():
+    return "Chat service is running!"
 
 @app.post("/chat/v1/send", status_code=200, response_model=MessageResponse)
 async def chat_endpoint(request: ChatRequest):
