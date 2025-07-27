@@ -8,7 +8,7 @@ from langchain_core.tools import tool
 from langchain_core.messages import HumanMessage, SystemMessage
 from datetime import date, datetime
 from tools import hospital_search_tool
-from tools import get_test_by_id_tool, get_tests_by_type_tool, get_tests_by_hospital_tool
+from tools import get_test_by_id_tool, get_tests_by_type_tool, get_tests_by_hospital_tool, get_hospital_feedbacks_tool, doctor_search_tool
 import threading
 from enum import Enum
 
@@ -51,7 +51,9 @@ llm_with_tools = llm.bind_tools([
     hospital_search_tool,
     get_test_by_id_tool,
     get_tests_by_type_tool,
-    get_tests_by_hospital_tool
+    get_tests_by_hospital_tool,
+    get_hospital_feedbacks_tool,
+    doctor_search_tool
 ])
 
 # --- Request/Response Models ---
