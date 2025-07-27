@@ -139,7 +139,8 @@ async def chat_endpoint(request: ChatRequest):
         "get_hospital_feedbacks": get_hospital_feedbacks_tool,
         "doctor_search": doctor_search_tool
     }
-    while tool_calls and len(tool_calls) > 0:
+    max_tool_calls = 5  # Limit to prevent infinite loops
+    while tool_calls and len(tool_calls) > 0 and max_tool_calls > 0:
         for tool_call in tool_calls:
             tool_name = tool_call["name"].lower()
             selected_tool = tool_dict.get(tool_name)
@@ -149,6 +150,7 @@ async def chat_endpoint(request: ChatRequest):
         ai_msg = llm_with_tools.invoke(messages)
         messages.append(ai_msg)
         tool_calls = getattr(ai_msg, 'tool_calls', [])
+        max_tool_calls = max_tool_calls - 1
     # Save updated messages
     with user_lock:
         user_messages[userId] = messages
