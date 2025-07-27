@@ -136,6 +136,8 @@ async def chat_endpoint(request: ChatRequest):
         "get_test_by_id": get_test_by_id_tool,
         "get_tests_by_type": get_tests_by_type_tool,
         "get_tests_by_hospital_name_or_id": get_tests_by_hospital_tool,
+        "get_hospital_feedbacks": get_hospital_feedbacks_tool,
+        "doctor_search": doctor_search_tool
     }
     while tool_calls and len(tool_calls) > 0:
         for tool_call in tool_calls:
